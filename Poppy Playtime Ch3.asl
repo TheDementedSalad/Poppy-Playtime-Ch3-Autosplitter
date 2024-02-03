@@ -8,7 +8,6 @@ state("Playtime_Chapter3-Win64-Shipping", "SteamRelease")
 {
 	byte CheckpointID	:	0x6DD1BA8, 0x158, 0x380;
 	byte LevelID		:	0x6DD1BA8, 0x158, 0x480;
-	byte MainMenu		:	0x6DD1BA8, 0x158, 0x4E8;
 	bool CatDefeat		:	0x6DD1BA8, 0x158, 0x3F9;
 	
 	int IsPaused 		: 0x68CFC20; // 0 when its not paused != 0 when its paused
@@ -42,7 +41,7 @@ update
 
 start
 {
-	return current.LevelID == 0 && current.CheckpointID == 1 && current.MainMenu != 0;
+	return current.LevelID == 0 && current.CheckpointID == 1;
 }
 
 split
@@ -52,7 +51,7 @@ split
 
 isLoading
 {
-	return current.IsPaused != 0 || current.IsGameFrozen != 0 || current.MainMenu == 0;
+	return current.IsPaused != 0 || current.IsGameFrozen != 0;
 }
 
 reset
