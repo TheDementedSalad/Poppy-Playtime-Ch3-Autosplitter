@@ -10,6 +10,9 @@ state("Playtime_Chapter3-Win64-Shipping", "SteamRelease")
 	byte LevelID		:	0x6DD1BA8, 0x158, 0x480;
 	byte MainMenu		:	0x6DD1BA8, 0x158, 0x4E8;
 	bool CatDefeat		:	0x6DD1BA8, 0x158, 0x3F9;
+	
+	int IsPaused 		: 0x68CFC20; // 0 when its not paused != 0 when its paused
+    int IsGameFrozen 	: 0x6970FF8; // 0 when its not frozen != 0 when its frozen
 
 }
 
@@ -49,7 +52,7 @@ split
 
 isLoading
 {
-
+	return current.IsPaused != 0 || current.IsGameFrozen != 0 || current.MainMenu == 0;
 }
 
 reset
