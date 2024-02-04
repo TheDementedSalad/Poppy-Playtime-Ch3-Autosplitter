@@ -8,10 +8,14 @@ state("Playtime_Chapter3-Win64-Shipping", "SteamRelease")
 {
 	byte CheckpointID	:	0x6DD1BA8, 0x158, 0x380;
 	byte LevelID		:	0x6DD1BA8, 0x158, 0x480;
-	bool CatDefeat		:	0x6DD1BA8, 0x158, 0x3F9;
+	byte spawnType		:	0x6DD1BA8, 0x1B8, 0x1C1;
 	
-	int IsPaused 		: 0x68CFC20; // 0 when its not paused != 0 when its paused
-    int IsGameFrozen 	: 0x6970FF8; // 0 when its not frozen != 0 when its frozen
+
+	string100 Level		:	0x6DCDDA0, 0x4E0, 0x0; // /Game/Maps/Menus/Level_MainMenu in main menu 
+	
+	byte isPaused		:	0x6DCDDA0, 0xADA;
+    byte IsGameFrozen 	: 	0x6970FF8; // 0 when its not frozen != 0 when its frozen
+	byte Inventory		:	0x6D1F364; 
 
 }
 
@@ -41,7 +45,7 @@ update
 
 start
 {
-	return current.LevelID == 0 && current.CheckpointID == 1;
+	return current.LevelID == 0 && current.CheckpointID == 1 && current.IsGameFrozen == 0;
 }
 
 split
@@ -51,10 +55,10 @@ split
 
 isLoading
 {
-	return current.IsPaused != 0 || current.IsGameFrozen != 0;
+	return current.isPaused == 1 && current.Inventory != 1 || current.IsGameFrozen != 0;
 }
 
 reset
 {
-
+	return current.spawnType == 3 && old.spawnType != 3;
 }
