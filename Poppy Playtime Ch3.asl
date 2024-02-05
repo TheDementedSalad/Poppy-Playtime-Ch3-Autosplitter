@@ -16,6 +16,9 @@ state("Playtime_Chapter3-Win64-Shipping", "SteamRelease")
 	byte isPaused		:	0x6DCDDA0, 0xADA;
     byte IsGameFrozen 	: 	0x6970FF8; // 0 when its not frozen != 0 when its frozen
 	byte Inventory		:	0x6D1F364; 
+	
+	byte MoviePlaying	:	0x6979850, 0x58, 0x2C8, 0x8, 0x28, 0x280;
+	uint MovieFrames	:	0x6979850, 0x58, 0x2C8, 0x8, 0x28, 0x294;
 
 }
 
@@ -45,7 +48,7 @@ update
 
 start
 {
-	return current.LevelID == 0 && current.CheckpointID == 1 && current.IsGameFrozen == 0;
+	return current.MoviePlaying == 0 && old.MoviePlaying == 1 && current.MovieFrames == 882;
 }
 
 split
@@ -60,5 +63,5 @@ isLoading
 
 reset
 {
-	return current.spawnType == 3 && old.spawnType != 3;
+	return current.Level != "/Menus/Level_MainMenu" && old.Level == "/Menus/Level_MainMenu" && current.spawnType == 3;
 }
