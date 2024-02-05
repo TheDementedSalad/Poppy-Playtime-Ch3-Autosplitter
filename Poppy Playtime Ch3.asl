@@ -11,7 +11,7 @@ state("Playtime_Chapter3-Win64-Shipping", "SteamRelease")
 	byte spawnType		:	0x6DD1BA8, 0x1B8, 0x1C1;
 	
 
-	string100 Level		:	0x6DCDDA0, 0x4E0, 0x0; // /Game/Maps/Menus/Level_MainMenu in main menu 
+	string100 Level		:	0x6DCDDA0, 0xAE0, 0x14; // /Game/Maps/Menus/Level_MainMenu in main menu 
 	
 	byte isPaused		:	0x6DCDDA0, 0xADA;
     byte IsGameFrozen 	: 	0x6970FF8; // 0 when its not frozen != 0 when its frozen
@@ -55,7 +55,7 @@ split
 
 isLoading
 {
-	return current.isPaused == 1 && current.Inventory != 1 || current.IsGameFrozen != 0;
+	return current.isPaused == 1 && current.Inventory != 1 || current.IsGameFrozen != 0 || current.Level == "/Menus/Level_MainMenu";
 }
 
 reset
