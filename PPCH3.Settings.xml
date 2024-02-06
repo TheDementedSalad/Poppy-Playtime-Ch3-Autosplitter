@@ -1,35 +1,68 @@
 <Settings>
     <Setting Id="Check"  Label="Checkpoint Splits" State="false">
-		<Setting Id="2" Label="Reach 2nd Set of Pistons" State="false"/>
-		<Setting Id="3" Label="Reach Tram Station" State="false"/>
-		<Setting Id="6" Label="Unlock Door to Gas Production Zone" State="false"/>
-		<Setting Id="9" Label="Start Electrics Puzzle" State="false"/>
-		<Setting Id="13" Label="Finish Dream Sequence In Playhouse" State="false"/>
-		<Setting Id="14" Label="Reach 2nd Floor" State="false"/>
-		<Setting Id="16" Label="Opened the Sun Door" State="false"/>
-		<Setting Id="17" Label="Enter Generator Room" State="false"/>
-		<Setting Id="21" Label="Reach Turret Puzzle on Bridge" State="false"/>
-		<Setting Id="23" Label="Down the Playhouse Slide" State="false"/>
-		<Setting Id="25" Label="Escape DogDay" State="false"/>
-		<Setting Id="30" Label="Open Door After Red Gas" State="false"/>
-		<Setting Id="36" Label="Open Door After Red Gass" State="false"/>
+		<Setting Id="Intro" Label="Intro Tunnels" State="false">
+			<Setting Id="2" Label="Reach 2nd Set of Pistons" State="false"/>
+			<Setting Id="3" Label="Reach Tram Station" State="false"/>
+			<Setting Id="4" Label="Reach Tram (Any% Stops Working After This)" State="false"/>
+		</Setting>
+		<Setting Id="Dome1" Label="Dome 1" State="false">
+			<Setting Id="5" Label="Dock At the Dome" State="false"/>
+			<Setting Id="6" Label="Unlock Door to Gas Production Zone" State="false"/>
+		</Setting>
+		<Setting Id="Gas" Label="Gas Production Zone" State="false">
+			<Setting Id="7" Label="Start Jump Pad Puzzle" State="false"/>
+			<Setting Id="9" Label="Start Electrics Puzzle" State="false"/>
+			<Setting Id="10" Label="Finish Electrics Puzzle" State="false"/>
+		</Setting>
+		<Setting Id="Dome2" Label="Dome 2" State="false">
+			<Setting Id="11" Label="On the Way to Collect Home Sweet Home Key" State="false"/>
+		</Setting>
+		<Setting Id="Dream1" Label="Dream Sequence" State="false">
+			<Setting Id="12" Label="Start Dream Sequence" State="false"/>
+			<Setting Id="13" Label="Finish Dream Sequence" State="false"/>
+		</Setting>	
+		<Setting Id="Home" Label="Home Sweet Home" State="false">
+			<Setting Id="14" Label="Reach 2nd Floor Living Room" State="false"/>
+			<Setting Id="15" Label="Enter Sun Door" State="false"/>
+			<Setting Id="16" Label="Activate Elevator" State="false"/>
+		</Setting>
+		<Setting Id="Dome3" Label="Dome 3" State="false">
+			<Setting Id="17" Label="One the Way to Collect School Key" State="false"/>
+		</Setting>
+		<Setting Id="Schoo" Label="School" State="false">
+			<Setting Id="18" Label="Open the First Gate" State="false"/>
+			<Setting Id="19" Label="Enter Generator Room" State="false"/>
+		</Setting>	
+		<Setting Id="Bridge" Label="Bridge" State="false">
+			<Setting Id="20" Label="Reach the Bridge" State="false"/>
+			<Setting Id="21" Label="Finish Elevator Puzzle" State="false"/>
+		</Setting>	
+		<Setting Id="PlayH" Label="Playhouse" State="false">
+			<Setting Id="22" Label="Enter the Playhouse" State="false"/>
+			<Setting Id="23" Label="Down the Slide" State="false"/>
+			<Setting Id="24" Label="Down the Spiral Stairs" State="false"/>
+			<Setting Id="25" Label="Escape DogDay" State="false"/>
+		</Setting>	
+		<Setting Id="Dome 4" Label="Dome 4" State="false">
+			<Setting Id="26" Label="On the Way to Collect Counselors Office Key" State="false"/>
+		</Setting>	
+		<Setting Id="Couns" Label="Counselors Office" State="false">
+			<Setting Id="27" Label="Battery Hidden In Vent" State="false"/>
+			<Setting Id="28" Label="Jump Pad Over Smoke" State="false"/>
+			<Setting Id="29" Label="Finish Jump Pad Puzzle" State="false"/>
+			<Setting Id="30" Label="Finish Electrical Door Puzzle" State="false"/>
+			<Setting Id="31" Label="Finish Turret Puzzle" State="false"/>
+			<Setting Id="32" Label="Fall Into Red Gas Room" State="false"/>
+		</Setting>	
+		<Setting Id="Dome5" Label="Dome 5" State="false">
+			<Setting Id="33" Label="Plugging In Office Cable" State="false"/>
+			<Setting Id="34" Label="Collecting Last Cable" State="false"/>
+		</Setting>	
+		<Setting Id="Finale" Label="CatNap's Arena" State="false">
+			<Setting Id="35" Label="Reach Arena" State="false"/>
+			<Setting Id="36" Label="Defeated CatNap" State="false"/>
+		</Setting>	
 	</Setting>
-	<Setting Id="Map"  Label="Map Splits (Will Split Every Transition)" State="false">
-		<Setting Id="TunDome" Label="Reach the Dome For the First Time" State="false"/>
-		<Setting Id="DomeGas" Label="Dome to Gas Production Zone" State="false"/>
-		<Setting Id="GasDome" Label="Gas Production Zone to Dome" State="false"/>
-		<Setting Id="DomeHome" Label="Dome to Home Sweet Home" State="false"/>
-		<Setting Id="HomeDome" Label="Home Sweet Home to Dome" State="false"/>
-		<Setting Id="DomeScho" Label="Dome to School" State="false"/>
-		<Setting Id="SchoBrid" Label="School to Bridge" State="false"/>
-		<Setting Id="BridPlay" Label="Bridge to Playhouse" State="false"/>
-		<Setting Id="PlayDome" Label="Playhouse to Dome" State="false"/>
-		<Setting Id="DomeCouns" Label="Dome to Counselors Office" State="false"/>
-		<Setting Id="CounsDream" Label="Councelors Office to Dream 2" State="false"/>
-		<Setting Id="DreamCouns" Label="Dream 2 to Councelors Office" State="false"/>
-		<Setting Id="CounsDome" Label="Councelors Office to Dome" State="false"/>
-		<Setting Id="GasFinal" Label="Gas Production Zone to Final Encounter" State="false"/>
-		<Setting Id="FinalGas" Label="Final Encounter to Gas Production Zone (Defeated CatNap)" State="false"/>
-	</Setting>
+	<Setting Id="Map"  Label="Splits Whenever the Map Changes (Any% Should Use This)" State="false"/>
 	<Setting Id="End" Label="Final Split (Always Active)" State="true"/>
 </Settings>
