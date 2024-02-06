@@ -10,20 +10,23 @@ state("Playtime_Chapter3-Win64-Shipping", "SteamRelease")
 	byte LevelID		:	0x6DD1BA8, 0x158, 0x480;
 	byte spawnType		:	0x6DD1BA8, 0x1B8, 0x1C1;
 	
-
 	string100 Level		:	0x6DCDDA0, 0xAE0, 0x14; // /Game/Maps/Menus/Level_MainMenu in main menu 
 	
 	byte isPaused		:	0x6DCDDA0, 0xADA;
-    byte IsGameFrozen 	: 	0x6970FF8; // 0 when its not frozen != 0 when its frozen
-	byte Inventory		:	0x6D1F364; 
+    byte isLoading		: 	0x6970FF8; // 0 when not loading (game not frozen)
+	byte Inventory		:	0x6D1F364; // 1 in inventory, 0 not in inventory.
 	
-	byte MoviePlaying	:	0x697E420, 0x130, 0x5F0, 0x50, 0x2F0, 0x8, 0x28, 0x280;
-	uint MovieFrames	:	0x697E420, 0x130, 0x5F0, 0x50, 0x2F0, 0x8, 0x28, 0x294;
+	byte IntroPlaying	:	0x697E420, 0x130, 0x5F0, 0x50, 0x2F0, 0x8, 0x28, 0x280; //LevelSequencePlayer 
+	uint IntroFrames	:	0x697E420, 0x130, 0x5F0, 0x50, 0x2F0, 0x8, 0x28, 0x294; //""
+	byte EndingPlaying	:	0x697E420, 0x130, 0x5F0, 0x80, 0x2F0, 0x8, 0x28, 0x280; //""
+	uint EndingFrames	:	0x697E420, 0x130, 0x5F0, 0x80, 0x2F0, 0x8, 0x28, 0x294; //""
 
 }
 
 init
 {
+	vars.completedSplits = new List<byte>();
+	
 	switch (modules.First().ModuleMemorySize)
 	{
 		case (122298368):
@@ -34,6 +37,9 @@ init
 
 startup
 {
+	Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
+	vars.Helper.Settings.CreateFromXml("Components/PPCH3.Settings.xml");
+
 }
 
 update
@@ -42,22 +48,32 @@ update
 	//print(modules.First().ModuleMemorySize.ToString());
 	
 	//print(current.LevelID.ToString());
+	
+	if(timer.CurrentPhase == TimerPhase.NotRunning)
+	{
+		vars.completedSplits.Clear();
+	}
 
 }
 
 start
 {
-	return current.MoviePlaying == 0 && old.MoviePlaying == 1 && current.MovieFrames == 882;
+	return current.IntroPlaying == 0 && old.IntroPlaying == 1 && current.IntroFrames == 882;
 }
 
 split
 {
-
+	if(settings["Check"]){
+		if(settings["" + current.CheckpointID] && !vars.completedSplits.Contains(current.CheckpointID)){
+			vars.completedSplits.Add(current.CheckpointID);
+			return true;
+		}
+	}
 }
 
 isLoading
 {
-	return current.isPaused == 1 && current.Inventory != 1 || current.IsGameFrozen != 0 || current.Level == "/Menus/Level_MainMenu";
+	return current.isPaused == 1 && current.Inventory != 1 || current.isLoading != 0 || current.Level == "/Menus/Level_MainMenu";
 }
 
 reset
