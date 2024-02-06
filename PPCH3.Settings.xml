@@ -19,4 +19,5 @@
 		<Setting Id="DomeScho" Label="Dome to School" State="false"/>
 		<Setting Id="SchoBrid" Label="School to Bridge" State="false"/>
 	</Setting>
+	<Setting Id="Ending" Label="Ending Split (Always Active)" State="true"/>
 </Settings>
