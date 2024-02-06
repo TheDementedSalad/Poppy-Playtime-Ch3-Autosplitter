@@ -6,7 +6,7 @@
 
 state("Playtime_Chapter3-Win64-Shipping", "SteamRelease")
 {
-	byte CheckpointID	:	0x6DD1BA8, 0x158, 0x380;
+	byte CheckpointID	:	0x6DD1BA8, 0x158, 0x380; // 1 when you start, 2 when you reach the 2nd piston puzzle, 3 when you reach the platform stairs, 4 when you reach tram
 	byte LevelID		:	0x6DD1BA8, 0x158, 0x480;
 	byte spawnType		:	0x6DD1BA8, 0x1B8, 0x1C1;
 	
