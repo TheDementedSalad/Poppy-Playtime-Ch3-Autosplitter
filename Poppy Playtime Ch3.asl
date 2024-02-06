@@ -39,7 +39,10 @@ startup
 {
 	Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
 	vars.Helper.Settings.CreateFromXml("Components/PPCH3.Settings.xml");
-
+	
+	vars.LvlStorage = new List<string>()
+	{"/TheDome/MP_Dome_Main", "/GasProductionZone/MP_GasProductionZone_Main", "/DreamOne/MP_DreamOne_Main", "/HomeSweetHome/MP_HomeSweetHome_Main", "/School/MP_School_Main",
+	 "/Bridge/MP_Bridge_Main", "/Playhouse/MP_Playhouse_Main", "/CounselorsOffice/MP_CounselorOffice_Main", "/FinalEncounter/MP_FinalEncounter_Main"};
 }
 
 update
@@ -68,6 +71,17 @@ split
 			vars.completedSplits.Add(current.CheckpointID);
 			return true;
 		}
+	}
+	
+	if(settings["Map"]){
+		if(vars.LvlStorage.Contains(current.Level) && current.Level != old.Level){
+			vars.completedSplits.Add(current.CheckpointID);
+			return true;
+		}
+	}
+	
+	if(current.EndingFrames == 916 && current.EndingPlaying == 0 && old.EndingPlaying == 1){
+		return true;
 	}
 }
 
