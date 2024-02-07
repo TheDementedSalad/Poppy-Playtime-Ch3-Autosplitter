@@ -65,7 +65,7 @@ update
 
 start
 {
-	return (current.X != old.X || current.Y != old.Y || current.Z != old.Z) && current.IntroPlaying == 0 && current.IntroFrames == 882;
+	return (current.X != old.X || current.Y != old.Y || current.Z != old.Z) && current.IntroPlaying == 0 && current.IntroFrames == 882 && current.Level == "/IntroTunnels/MP_IntroTunnels_Main";
 }
 
 split
