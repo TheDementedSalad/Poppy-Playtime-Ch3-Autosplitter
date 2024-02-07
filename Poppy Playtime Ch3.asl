@@ -14,15 +14,17 @@ state("Playtime_Chapter3-Win64-Shipping", "SteamRelease")
 	
 	byte isPaused		:	0x6DCDDA0, 0xADA;
     byte isLoading		: 	0x6970FF8; // 0 when not loading (game not frozen)
+	byte Loading2		:	0x6C686B0, 0x1E8; //3 loading
 	byte Inventory		:	0x6D1F364; // 1 in inventory, 0 not in inventory.
 	
 	float X				:	0x6DB30B0, 0x30, 0x2D0, 0x328, 0x264;
 	float Y				:	0x6DB30B0, 0x30, 0x2D0, 0x328, 0x274;
 	float Z				:	0x6DB30B0, 0x30, 0x2D0, 0x328, 0x26C;
 	
+	
 	byte IntroPlaying	:	0x6DD4300, 0x110, 0x1E0, 0x50, 0x2F0, 0x8, 0x28, 0x280; //LevelSequencePlayer 
 	uint IntroFrames	:	0x6DD4300, 0x110, 0x1E0, 0x50, 0x2F0, 0x8, 0x28, 0x294; //""
-	byte EndingPlaying	:	0x6DD4300, 0x110, 0x1E0, 0x80, 0x2F0, 0x8, 0x28, 0x280; //""
+	uint EndingCurF		:	0x6DD4300, 0x110, 0x1E0, 0x80, 0x2F0, 0x8, 0x28, 0x364; //""
 	uint EndingFrames	:	0x6DD4300, 0x110, 0x1E0, 0x80, 0x2F0, 0x8, 0x28, 0x294; //""
 
 }
@@ -84,14 +86,14 @@ split
 		}
 	}
 	
-	if(current.EndingFrames == 916 && current.EndingPlaying == 0 && old.EndingPlaying == 1){
+	if(current.EndingFrames == 916 && current.EndingCurF >= 740){
 		return true;
 	}
 }
 
 isLoading
 {
-	return current.isPaused == 1 && current.Inventory != 1 || current.isLoading != 0 || current.Level == "/Menus/Level_MainMenu";
+	return current.isPaused == 1 && current.Inventory != 1 || current.isLoading != 0 || current.Level == "/Menus/Level_MainMenu" || current.Loading2 == 3;
 }
 
 reset
