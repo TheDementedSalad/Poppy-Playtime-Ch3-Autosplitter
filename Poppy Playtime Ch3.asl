@@ -13,13 +13,14 @@ state("Playtime_Chapter3-Win64-Shipping", "SteamRelease")
 	string100 Level		:	0x6DCDDA0, 0xAE0, 0x14; // /Game/Maps/Menus/Level_MainMenu in main menu 
 	
 	byte isPaused		:	0x6DCDDA0, 0xADA;
-    	byte isLoading		: 	0x6970FF8; // 0 when not loading (game not frozen)
+    byte isFroze		: 	0x6970FF8; // 0 when not loading (game not frozen)
 	byte Inventory		:	0x6D1F364; // 1 in inventory, 0 not in inventory.
 	
 	float X				:	0x6DB30B0, 0x30, 0x2D0, 0x328, 0x264;
 	float Y				:	0x6DB30B0, 0x30, 0x2D0, 0x328, 0x274;
 	float Z				:	0x6DB30B0, 0x30, 0x2D0, 0x328, 0x26C;
 	
+	float loadFade		:	0x6C684A8, 0xA8, 0x190, 0x3D0, 0x20, 0x288, 0xE8;
 	
 	byte IntroPlaying	:	0x697E420, 0x58, 0x9B0, 0x50, 0x2F0, 0x8, 0x28, 0x280; //LevelSequencePlayer 
 	uint IntroFrames	:	0x697E420, 0x58, 0x9B0, 0x50, 0x2F0, 0x8, 0x28, 0x294; //""
@@ -92,7 +93,7 @@ split
 
 isLoading
 {
-	return current.isPaused == 1 && current.Inventory != 1 || current.isLoading != 0 || current.Level == "/Menus/Level_MainMenu";
+	return current.isPaused == 1 && current.Inventory != 1 || current.isFroze != 0 || current.Level == "/Menus/Level_MainMenu" || current.loadFade == 1;
 }
 
 reset
