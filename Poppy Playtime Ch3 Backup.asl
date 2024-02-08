@@ -91,7 +91,7 @@ split
 
 isLoading
 {
-	return current.isPaused == 1 && current.Inventory != 1 || current.isFroze != 0 || current.Level == "/Menus/Level_MainMenu" || 
+	return current.isPaused == 1 && current.Inventory != 1 || current.isFroze != 0 || current.Level == "/Menus/Level_MainMenu"; 
 }
 
 reset
