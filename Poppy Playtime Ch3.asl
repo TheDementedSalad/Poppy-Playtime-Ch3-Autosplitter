@@ -72,6 +72,29 @@ state("Playtime_Chapter3-Win64-Shipping", "Update1")
 
 }
 
+state("Playtime_Chapter3-Win64-Shipping", "Update3")
+{
+	byte CheckpointID	:	0x6DDB728, 0x158, 0x380; // 1 when you start, 2 when you reach the 2nd piston puzzle, 3 when you reach the platform stairs, 4 when you reach tram
+	byte spawnType		:	0x6DDB728, 0x1B8, 0x1C1;
+	
+	string100 Level		:	0x6DD7920, 0xAE0, 0x14; // /Game/Maps/Menus/Level_MainMenu in main menu 
+	
+	byte isPaused		:	0x6DD7920, 0xADA;
+    byte isFroze		: 	0x697A938; // 0 when not loading (game not frozen)
+	byte Inventory		:	0x6D28EE4; // 1 in inventory, 0 not in inventory.
+	
+	float X				:	0x6DBCC30, 0x30, 0x2D0, 0x328, 0x264;
+	float Y				:	0x6DBCC30, 0x30, 0x2D0, 0x328, 0x274;
+	float Z				:	0x6DBCC30, 0x30, 0x2D0, 0x328, 0x26C;
+	
+	float loadFade		:	0x6B1F908, 0x48, 0x0, 0x38, 0x220, 0x10, 0x10, 0x230, 0x12C; //UI_LoadingPlay_C during black screen after load
+	
+	byte IntroPlaying	:	0x6A25130, 0x98, 0x330, 0x300, 0x280; //LevelSequencePlayer 
+	uint IntroFrames	:	0x6A25130, 0x98, 0x330, 0x300, 0x294;
+	uint EndingCurF		:	0x6A25130, 0x98, 0x20, 0x300, 0x3D0;
+	uint EndingFrames	:	0x6A25130, 0x98, 0x20, 0x300, 0x294;
+}
+
 init
 {
 	vars.completedSplits = new List<byte>();
@@ -83,6 +106,9 @@ init
 			break;
 		case (122306560):
 			version = "Update1";
+			break;
+		case (122347520):
+			version = "Update3";
 			break;
 	}
 }
@@ -100,7 +126,7 @@ startup
 update
 {
 	//Uncomment debug information in the event of an update.
-	print(modules.First().ModuleMemorySize.ToString());
+	//print(modules.First().ModuleMemorySize.ToString());
 	
 	if(timer.CurrentPhase == TimerPhase.NotRunning)
 	{
@@ -137,7 +163,12 @@ split
 
 isLoading
 {
-	return current.isPaused == 1 && current.Inventory != 1 || current.isFroze != 0 || current.Level == "/Menus/Level_MainMenu" || 
+	if (version == "Update3"){
+		return current.isPaused == 1 && current.Inventory != 1 || current.isFroze != 0 || current.Level == "/Menus/Level_MainMenu" || current.loadFade == 1 || current.CheckpointID == 0;
+	}
+	
+	if (version == "Update2" || version == "SteamRelease"){
+		return current.isPaused == 1 && current.Inventory != 1 || current.isFroze != 0 || current.Level == "/Menus/Level_MainMenu" || 
 			current.loadIntro == 1 && current.Level == "/IntroTunnels/MP_IntroTunnels_Main" ||
 			current.loadDome == 1 && current.Level == "/TheDome/MP_Dome_Main" ||
 			current.loadGas == 1 && current.Level == "/GasProductionZone/MP_GasProductionZone_Main" ||
@@ -149,7 +180,7 @@ isLoading
 			current.loadCounsel == 1 && current.Level == "/CounselorsOffice/MP_CounselorOffice_Main"||
 			current.loadDream2 == 1 && current.Level == "/DreamTwo/MP_DreamTwo_Main"||
 			current.loadFinal == 1 && current.Level == "/FinalEncounter/MP_FinalEncounter_Main";
-			
+	}
 }
 
 reset
