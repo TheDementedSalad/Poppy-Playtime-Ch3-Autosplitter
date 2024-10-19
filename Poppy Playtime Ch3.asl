@@ -4,95 +4,16 @@
 // Script by TheDementedSalad
 
 
-state("Playtime_Chapter3-Win64-Shipping", "SteamRelease")
+state("Playtime_Chapter3-Win64-Shipping", "SteamRelease"){}
+
+startup
 {
-	byte CheckpointID	:	0x6DD1BA8, 0x158, 0x380; // 1 when you start, 2 when you reach the 2nd piston puzzle, 3 when you reach the platform stairs, 4 when you reach tram
-	byte spawnType		:	0x6DD1BA8, 0x1B8, 0x1C1;
+	Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
+	vars.Helper.Settings.CreateFromXml("Components/PPCH3.Settings.xml");
 	
-	string100 Level		:	0x6DCDDA0, 0xAE0, 0x14; // /Game/Maps/Menus/Level_MainMenu in main menu 
-	
-	byte isPaused		:	0x6DCDDA0, 0xADA;
-    byte isFroze		: 	0x6970FF8; // 0 when not loading (game not frozen)
-	byte Inventory		:	0x6D1F364; // 1 in inventory, 0 not in inventory.
-	
-	float X				:	0x6DB30B0, 0x30, 0x2D0, 0x328, 0x264;
-	float Y				:	0x6DB30B0, 0x30, 0x2D0, 0x328, 0x274;
-	float Z				:	0x6DB30B0, 0x30, 0x2D0, 0x328, 0x26C;
-	
-	float loadIntro		:	0x6DD1BA8, 0x30, 0x98, 0x60, 0x290, 0x1B0, 0x288, 0xE8; //UI_LoadingPlay_C during black screen after load
-	float loadDome		:	0x6DD1BA8, 0x30, 0x98, 0x1B8, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadGas		:	0x6DD1BA8, 0x30, 0x98, 0x100, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadDream1	:	0x6DD1BA8, 0x30, 0x98, 0xD8, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadHome		:	0x6DD1BA8, 0x30, 0x98, 0x78, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadSchool	:	0x6DD1BA8, 0x30, 0x98, 0x90, 0x290, 0x1B0, 0x288, 0xE8; 
-	float loadBridge	:	0x6DD1BA8, 0x30, 0x98, 0xC8, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadPlay		:	0x6DD1BA8, 0x30, 0x98, 0x30, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadCounsel	:	0x6DD1BA8, 0x30, 0x98, 0x220, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadDream2	:	0x6DD1BA8, 0x30, 0x98, 0x28, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadFinal		:	0x6DD1BA8, 0x30, 0x98, 0x20, 0x290, 0x1B0, 0x288, 0xE8;
-	
-	byte IntroPlaying	:	0x697E420, 0x58, 0x9B0, 0x50, 0x2F0, 0x8, 0x28, 0x280; //LevelSequencePlayer 
-	uint IntroFrames	:	0x697E420, 0x58, 0x9B0, 0x50, 0x2F0, 0x8, 0x28, 0x294;
-	uint EndingCurF		:	0x697E420, 0x58, 0x9B0, 0x80, 0x2F0, 0x8, 0x28, 0x364;
-	uint EndingFrames	:	0x697E420, 0x58, 0x9B0, 0x80, 0x2F0, 0x8, 0x28, 0x294;
-
-}
-
-state("Playtime_Chapter3-Win64-Shipping", "Update1")
-{
-	byte CheckpointID	:	0x6DD2CA8, 0x158, 0x380; // 1 when you start, 2 when you reach the 2nd piston puzzle, 3 when you reach the platform stairs, 4 when you reach tram
-	byte spawnType		:	0x6DD2CA8, 0x1B8, 0x1C1;
-	
-	string100 Level		:	0x6DCEEA0, 0xAE0, 0x14; // /Game/Maps/Menus/Level_MainMenu in main menu 
-	
-	byte isPaused		:	0x6DCEEA0, 0xADA;
-    byte isFroze		: 	0x6972078; // 0 when not loading (game not frozen)
-	byte Inventory		:	0x6D20464; // 1 in inventory, 0 not in inventory.
-	
-	float X				:	0x6DB41B0, 0x30, 0x2D0, 0x328, 0x264;
-	float Y				:	0x6DB41B0, 0x30, 0x2D0, 0x328, 0x274;
-	float Z				:	0x6DB41B0, 0x30, 0x2D0, 0x328, 0x26C;
-	
-	float loadIntro		:	0x6DD2CA8, 0x30, 0x98, 0x60, 0x290, 0x1B0, 0x288, 0xE8; //UI_LoadingPlay_C during black screen after load
-	float loadDome		:	0x6DD2CA8, 0x30, 0x98, 0x1B8, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadGas		:	0x6DD2CA8, 0x30, 0x98, 0x100, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadDream1	:	0x6DD2CA8, 0x30, 0x98, 0xD8, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadHome		:	0x6DD2CA8, 0x30, 0x98, 0x78, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadSchool	:	0x6DD2CA8, 0x30, 0x98, 0x90, 0x290, 0x1B0, 0x288, 0xE8; 
-	float loadBridge	:	0x6DD2CA8, 0x30, 0x98, 0xC8, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadPlay		:	0x6DD2CA8, 0x30, 0x98, 0x30, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadCounsel	:	0x6DD2CA8, 0x30, 0x98, 0x220, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadDream2	:	0x6DD2CA8, 0x30, 0x98, 0x28, 0x290, 0x1B0, 0x288, 0xE8;
-	float loadFinal		:	0x6DD2CA8, 0x30, 0x98, 0x20, 0x290, 0x1B0, 0x288, 0xE8;
-	
-	byte IntroPlaying	:	0x697F4A0, 0x58, 0x9B0, 0x50, 0x2F0, 0x8, 0x28, 0x280; //LevelSequencePlayer 
-	uint IntroFrames	:	0x697F4A0, 0x58, 0x9B0, 0x50, 0x2F0, 0x8, 0x28, 0x294;
-	uint EndingCurF		:	0x697F4A0, 0x58, 0x9B0, 0x80, 0x2F0, 0x8, 0x28, 0x364;
-	uint EndingFrames	:	0x697F4A0, 0x58, 0x9B0, 0x80, 0x2F0, 0x8, 0x28, 0x294;
-
-}
-
-state("Playtime_Chapter3-Win64-Shipping", "Update3")
-{
-	byte CheckpointID	:	0x6DDB728, 0x158, 0x380; // 1 when you start, 2 when you reach the 2nd piston puzzle, 3 when you reach the platform stairs, 4 when you reach tram
-	byte spawnType		:	0x6DDB728, 0x1B8, 0x1C1;
-	
-	string100 Level		:	0x6DD7920, 0xAE0, 0x14; // /Game/Maps/Menus/Level_MainMenu in main menu 
-	
-	byte isPaused		:	0x6DD7920, 0xADA;
-    byte isFroze		: 	0x697A938; // 0 when not loading (game not frozen)
-	byte Inventory		:	0x6D28EE4; // 1 in inventory, 0 not in inventory.
-	
-	float X				:	0x6DBCC30, 0x30, 0x2D0, 0x328, 0x264;
-	float Y				:	0x6DBCC30, 0x30, 0x2D0, 0x328, 0x274;
-	float Z				:	0x6DBCC30, 0x30, 0x2D0, 0x328, 0x26C;
-	
-	float loadFade		:	0x6B1F908, 0x48, 0x0, 0x38, 0x220, 0x10, 0x10, 0x230, 0x12C; //UI_LoadingPlay_C during black screen after load
-	
-	byte IntroPlaying	:	0x6A25130, 0x98, 0x330, 0x300, 0x280; //LevelSequencePlayer 
-	uint IntroFrames	:	0x6A25130, 0x98, 0x330, 0x300, 0x294;
-	uint EndingCurF		:	0x6A25130, 0x98, 0x20, 0x300, 0x3D0;
-	uint EndingFrames	:	0x6A25130, 0x98, 0x20, 0x300, 0x294;
+	vars.LvlStorage = new List<string>()
+	{"/TheDome/MP_Dome_Main", "/GasProductionZone/MP_GasProductionZone_Main", "/DreamOne/MP_DreamOne_Main", "/HomeSweetHome/MP_HomeSweetHome_Main", "/School/MP_School_Main",
+	 "/Bridge/MP_Bridge_Main", "/Playhouse/MP_Playhouse_Main", "/CounselorsOffice/MP_CounselorOffice_Main", "/FinalEncounter/MP_FinalEncounter_Main"};
 }
 
 init
@@ -111,16 +32,88 @@ init
 			version = "Update3";
 			break;
 	}
-}
 
-startup
-{
-	Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
-	vars.Helper.Settings.CreateFromXml("Components/PPCH3.Settings.xml");
+	IntPtr gWorld = vars.Helper.ScanRel(3, "48 8B 05 ???????? 48 3B C? 48 0F 44 C? 48 89 05 ???????? E8");
+	IntPtr gEngine = vars.Helper.ScanRel(3, "48 89 05 ???????? 48 85 c9 74 ?? e8 ???????? 48 8d 4d");
+	IntPtr fNames = vars.Helper.ScanRel(3, "48 8d 0d ?? ?? ?? ?? e8 ?? ?? ?? ?? c6 05 ?? ?? ?? ?? ?? 0f 10 07");
+	IntPtr gSyncLoad = vars.Helper.ScanRel(21, "33 C0 0F 57 C0 F2 0F 11 05");
 	
-	vars.LvlStorage = new List<string>()
-	{"/TheDome/MP_Dome_Main", "/GasProductionZone/MP_GasProductionZone_Main", "/DreamOne/MP_DreamOne_Main", "/HomeSweetHome/MP_HomeSweetHome_Main", "/School/MP_School_Main",
-	 "/Bridge/MP_Bridge_Main", "/Playhouse/MP_Playhouse_Main", "/CounselorsOffice/MP_CounselorOffice_Main", "/FinalEncounter/MP_FinalEncounter_Main"};
+	if (gWorld == IntPtr.Zero || gEngine == IntPtr.Zero)
+	{
+		const string Msg = "Not all required addresses could be found by scanning.";
+		throw new Exception(Msg);
+	}
+	
+	vars.Helper["isLoading"] = vars.Helper.Make<bool>(gSyncLoad);
+	
+	vars.Helper["CheckpointID"] = vars.Helper.Make<byte>(gEngine, 0x9A0, 0x78, 0x158, 0x380);
+	
+	vars.Helper["spawnType"] = vars.Helper.Make<byte>(gEngine, 0x9A0, 0x78, 0x1B8, 0x1C1);
+	
+	vars.Helper["Level"] = vars.Helper.MakeString(gEngine, 0xAE0, 0x14);
+	
+	vars.Helper["localPlayer"] = vars.Helper.Make<ulong>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x18);
+	vars.Helper["localPlayer"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
+	
+	//gEngine.GameInstance.LocalPlayers[0].PlayerController.Character.CapsuleMovement.RelativeLocationYXZ
+	vars.Helper["X"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x128);
+	vars.Helper["Y"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x138);
+	vars.Helper["Z"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x130);
+	
+	//gEngine.GameInstance.LocalPlayers[0].PlayerController.AcknowledgedPawn.bPlayerAlive[1]
+	vars.Helper["isAlive"] = vars.Helper.Make<bool>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x338, 0x9A8);
+	
+	//gEngine.GameInstance.LocalPlayers[0].PlayerController.MyHUD.Base_UI_Widget.Menus_Layer.DisplayedWidget.FName
+	vars.Helper["CurrentWidget"] = vars.Helper.Make<ulong>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x340, 0x388, 0x2B8, 0x180, 0x18);
+	vars.Helper["CurrentWidget"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
+	
+	vars.Helper["FinalCutMaxFrame"] = vars.Helper.Make<ulong>(gEngine, 0x9A0, 0x78, 0x30, 0xA8, 0xA8, 0x2C0, 0x294);
+	vars.Helper["FinalCutCurrFrame"] = vars.Helper.Make<ulong>(gEngine, 0x9A0, 0x78, 0x30, 0xA8, 0xA8, 0x2C0, 0x3D0);
+	
+	
+	if(version == "SteamRelease"){
+		vars.Helper["CanMove"] = vars.Helper.Make<short>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x618);
+	}
+	else{
+		vars.Helper["CanMove"] = vars.Helper.Make<byte>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x619);
+	}
+	
+	//vars.Helper["isFroze"] = vars.Helper.Make<byte>(gEngine, 0xCE0, 0x130, 0x390, 0x50, 0x40, 0x18, 0x248);
+	//vars.Helper["loadFade"] = vars.Helper.Make<float>(gEngine, 0x9A0, 0x388, 0xB0, 0x158, 0x10, 0x2A0, 0x288, 0xE8);
+	
+	vars.FNameToString = (Func<ulong, string>)(fName =>
+	{
+		var nameIdx  = (fName & 0x000000000000FFFF) >> 0x00;
+		var chunkIdx = (fName & 0x00000000FFFF0000) >> 0x10;
+		var number   = (fName & 0xFFFFFFFF00000000) >> 0x20;
+
+		IntPtr chunk = vars.Helper.Read<IntPtr>(fNames + 0x10 + (int)chunkIdx * 0x8);
+		IntPtr entry = chunk + (int)nameIdx * sizeof(short);
+
+		int length = vars.Helper.Read<short>(entry) >> 6;
+		string name = vars.Helper.ReadString(length, ReadStringType.UTF8, entry + sizeof(short));
+
+		return number == 0 ? name : name + "_" + number;
+	});
+	
+	vars.FNameToShortString = (Func<ulong, string>)(fName =>
+	{
+		string name = vars.FNameToString(fName);
+
+		int dot = name.LastIndexOf('.');
+		int slash = name.LastIndexOf('/');
+
+		return name.Substring(Math.Max(dot, slash) + 1);
+	});
+	
+	vars.FNameToShortString2 = (Func<ulong, string>)(fName =>
+	{
+		string name = vars.FNameToString(fName);
+
+		int under = name.LastIndexOf('_');
+
+		return name.Substring(0, under + 1);
+	});
 }
 
 update
@@ -128,62 +121,48 @@ update
 	//Uncomment debug information in the event of an update.
 	//print(modules.First().ModuleMemorySize.ToString());
 	
+	vars.Helper.Update();
+	vars.Helper.MapPointers();
+	
 	if(timer.CurrentPhase == TimerPhase.NotRunning)
 	{
 		vars.completedSplits.Clear();
 	}
 
+	//print(current.isLoading.ToString());
 }
 
 start
 {
-	return (current.X != old.X || current.Y != old.Y || current.Z != old.Z) && current.IntroPlaying == 0 && current.IntroFrames == 882 && current.Level == "/IntroTunnels/MP_IntroTunnels_Main";
+	return (current.X != old.X || current.Y != old.Y || current.Z != old.Z) && current.Level == "/IntroTunnels/MP_IntroTunnels_Main";
 }
 
 split
 {
-	if(settings["Check"]){
-		if(settings["" + current.CheckpointID] && !vars.completedSplits.Contains(current.CheckpointID)){
-			vars.completedSplits.Add(current.CheckpointID);
-			return true;
-		}
-	}
+	if (current.CheckpointID != old.CheckpointID && settings["" + current.CheckpointID] && !vars.completedSplits.Contains(current.CheckpointID)){
+		vars.completedSplits.Add(current.CheckpointID);
+        return true;
+    }
 	
 	if(settings["Map"]){
-		if(vars.LvlStorage.Contains(current.Level) && current.Level != old.Level){
-			vars.completedSplits.Add(current.CheckpointID);
+		if(!vars.LvlStorage.Contains(current.Level) && current.Level != old.Level && current.Level != "/Menus/Level_MainMenu"){
 			return true;
 		}
 	}
 	
-	if(current.EndingFrames == 916 && current.EndingCurF >= 740){
+	if(current.FinalCutMaxFrame == 916 && current.FinalCutCurrFrame >= 740){
 		return true;
 	}
 }
 
 isLoading
 {
-	if (version == "Update3"){
-		return current.isPaused == 1 && current.Inventory != 1 || current.isFroze != 0 || current.Level == "/Menus/Level_MainMenu" || current.loadFade == 1 || current.CheckpointID == 0;
-	}
-	
-	if (version == "Update2" || version == "SteamRelease"){
-		return current.isPaused == 1 && current.Inventory != 1 || current.isFroze != 0 || current.Level == "/Menus/Level_MainMenu" || 
-			current.loadIntro == 1 && current.Level == "/IntroTunnels/MP_IntroTunnels_Main" ||
-			current.loadDome == 1 && current.Level == "/TheDome/MP_Dome_Main" ||
-			current.loadGas == 1 && current.Level == "/GasProductionZone/MP_GasProductionZone_Main" ||
-			current.loadDream1 == 1 && current.Level == "/DreamOne/MP_DreamOne_Main" ||
-			current.loadHome == 1 && current.Level == "/HomeSweetHome/MP_HomeSweetHome_Main" ||
-			current.loadSchool == 1 && current.Level == "/School/MP_School_Main" ||
-			current.loadBridge == 1 && current.Level == "/Bridge/MP_Bridge_Main" ||
-			current.loadPlay == 1 && current.Level == "/Playhouse/MP_Playhouse_Main" ||
-			current.loadCounsel == 1 && current.Level == "/CounselorsOffice/MP_CounselorOffice_Main"||
-			current.loadDream2 == 1 && current.Level == "/DreamTwo/MP_DreamTwo_Main"||
-			current.loadFinal == 1 && current.Level == "/FinalEncounter/MP_FinalEncounter_Main";
-	}
+	return vars.FNameToShortString2(current.CurrentWidget) == "BPW_PauseMenu_C_" || vars.FNameToShortString2(current.localPlayer) != "PlaytimePlayerController_" || 
+			current.Level == "/Menus/Level_MainMenu" || current.CheckpointID == 0 || current.CanMove == 4 && current.isAlive == 1;
 }
 
 reset
+
 {
 	return current.Level != "/Menus/Level_MainMenu" && old.Level == "/Menus/Level_MainMenu" && current.spawnType == 3;
 }
