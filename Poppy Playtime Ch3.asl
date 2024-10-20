@@ -158,7 +158,7 @@ split
 isLoading
 {
 	return vars.FNameToShortString2(current.CurrentWidget) == "BPW_PauseMenu_C_" || vars.FNameToShortString2(current.localPlayer) != "PlaytimePlayerController_" || 
-			current.Level == "/Menus/Level_MainMenu" || current.CheckpointID == 0 || current.CanMove == 4 && current.isAlive == 1;
+			current.Level == "/Menus/Level_MainMenu" || current.CheckpointID == 0 || current.CanMove == 4 && current.isAlive || current.isLoading;
 }
 
 reset
