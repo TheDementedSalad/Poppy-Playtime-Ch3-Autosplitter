@@ -70,16 +70,16 @@ init
 	vars.Helper["FinalCutMaxFrame"] = vars.Helper.Make<ulong>(gEngine, 0x9A0, 0x78, 0x30, 0xA8, 0xA8, 0x2C0, 0x294);
 	vars.Helper["FinalCutCurrFrame"] = vars.Helper.Make<ulong>(gEngine, 0x9A0, 0x78, 0x30, 0xA8, 0xA8, 0x2C0, 0x3D0);
 	
+	vars.Helper["Character"] = vars.Helper.Make<ulong>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x18);
+	vars.Helper["Character"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
+	
 	
 	if(version == "SteamRelease"){
-		vars.Helper["CanMove"] = vars.Helper.Make<short>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x618);
+		vars.Helper["CanMove"] = vars.Helper.Make<byte>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x618);
 	}
 	else{
 		vars.Helper["CanMove"] = vars.Helper.Make<byte>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x619);
 	}
-	
-	//vars.Helper["isFroze"] = vars.Helper.Make<byte>(gEngine, 0xCE0, 0x130, 0x390, 0x50, 0x40, 0x18, 0x248);
-	//vars.Helper["loadFade"] = vars.Helper.Make<float>(gEngine, 0x9A0, 0x388, 0xB0, 0x158, 0x10, 0x2A0, 0x288, 0xE8);
 	
 	vars.FNameToString = (Func<ulong, string>)(fName =>
 	{
@@ -129,12 +129,15 @@ update
 		vars.completedSplits.Clear();
 	}
 
-	//print(current.isLoading.ToString());
+	//print(current.CanMove.ToString());
+	
+	//print(vars.FNameToShortString2(current.Character));
 }
 
 start
 {
-	return (current.X != old.X || current.Y != old.Y || current.Z != old.Z) && current.Level == "/IntroTunnels/MP_IntroTunnels_Main";
+	return (current.X != old.X || current.Y != old.Y || current.Z != old.Z) && current.Level == "/IntroTunnels/MP_IntroTunnels_Main" && 
+			current.CanMove == 0 && vars.FNameToShortString2(current.Character) == "BP_WireCharacter_C_";
 }
 
 split
