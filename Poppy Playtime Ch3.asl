@@ -48,7 +48,7 @@ init
 	
 	vars.Helper["CheckpointID"] = vars.Helper.Make<byte>(gEngine, 0x9A0, 0x78, 0x158, 0x380);
 	
-	vars.Helper["spawnType"] = vars.Helper.Make<byte>(gEngine, 0x9A0, 0x78, 0x1B8, 0x1C1);
+	vars.Helper["spawnType"] = vars.Helper.Make<byte>(gEngine, 0x1058, 0x1C1);
 	
 	vars.Helper["Level"] = vars.Helper.MakeString(gEngine, 0xAE0, 0x14);
 	
@@ -56,9 +56,9 @@ init
 	vars.Helper["localPlayer"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 	
 	//gEngine.GameInstance.LocalPlayers[0].PlayerController.Character.CapsuleMovement.RelativeLocationYXZ
-	vars.Helper["X"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x128);
-	vars.Helper["Y"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x138);
-	vars.Helper["Z"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x130);
+	//vars.Helper["X"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x128);
+	//vars.Helper["Y"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x138);
+	//vars.Helper["Z"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x130);
 	
 	//gEngine.GameInstance.LocalPlayers[0].PlayerController.AcknowledgedPawn.bPlayerAlive[1]
 	vars.Helper["isAlive"] = vars.Helper.Make<bool>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x338, 0x9A8);
@@ -67,11 +67,10 @@ init
 	vars.Helper["CurrentWidget"] = vars.Helper.Make<ulong>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x340, 0x388, 0x2B8, 0x180, 0x18);
 	vars.Helper["CurrentWidget"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 	
+	vars.Helper["isMoving"] = vars.Helper.Make<ushort>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x338, 0x85E);
+	
 	vars.Helper["FinalCutMaxFrame"] = vars.Helper.Make<ulong>(gEngine, 0x9A0, 0x78, 0x30, 0xA8, 0xA8, 0x2C0, 0x294);
 	vars.Helper["FinalCutCurrFrame"] = vars.Helper.Make<ulong>(gEngine, 0x9A0, 0x78, 0x30, 0xA8, 0xA8, 0x2C0, 0x3D0);
-	
-	vars.Helper["Character"] = vars.Helper.Make<ulong>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x18);
-	vars.Helper["Character"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 	
 	
 	if(version == "SteamRelease"){
@@ -136,8 +135,7 @@ update
 
 start
 {
-	return (current.X != old.X || current.Y != old.Y || current.Z != old.Z) && current.Level == "/IntroTunnels/MP_IntroTunnels_Main" && 
-			current.CanMove == 0 && vars.FNameToShortString2(current.Character) == "BP_WireCharacter_C_";
+	return current.isMoving == 1 && old.isMoving == 0 && current.Level == "/IntroTunnels/MP_IntroTunnels_Main";
 }
 
 split
