@@ -146,7 +146,7 @@ split
     }
 	
 	if(settings["Map"]){
-		if(!vars.LvlStorage.Contains(current.Level) && current.Level != old.Level && current.Level != "/Menus/Level_MainMenu"){
+		if(vars.LvlStorage.Contains(current.Level) && current.Level != old.Level && current.Level != "/Menus/Level_MainMenu"){
 			return true;
 		}
 	}
