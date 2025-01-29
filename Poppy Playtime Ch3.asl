@@ -56,9 +56,9 @@ init
 	vars.Helper["localPlayer"].FailAction = MemoryWatcher.ReadFailAction.SetZeroOrNull;
 	
 	//gEngine.GameInstance.LocalPlayers[0].PlayerController.Character.CapsuleMovement.RelativeLocationYXZ
-	//vars.Helper["X"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x128);
-	//vars.Helper["Y"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x138);
-	//vars.Helper["Z"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x130);
+	vars.Helper["X"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x128);
+	vars.Helper["Y"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x138);
+	vars.Helper["Z"] = vars.Helper.Make<double>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x2E0, 0x328, 0x130);
 	
 	//gEngine.GameInstance.LocalPlayers[0].PlayerController.AcknowledgedPawn.bPlayerAlive[1]
 	vars.Helper["isAlive"] = vars.Helper.Make<bool>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x338, 0x9A8);
@@ -69,8 +69,8 @@ init
 	
 	vars.Helper["isMoving"] = vars.Helper.Make<ushort>(gEngine, 0x1058, 0x38, 0x0, 0x30, 0x338, 0x85E);
 	
-	vars.Helper["FinalCutMaxFrame"] = vars.Helper.Make<ulong>(gEngine, 0x9A0, 0x78, 0x30, 0xA8, 0xA8, 0x2C0, 0x294);
-	vars.Helper["FinalCutCurrFrame"] = vars.Helper.Make<ulong>(gEngine, 0x9A0, 0x78, 0x30, 0xA8, 0xA8, 0x2C0, 0x3D0);
+	//vars.Helper["FinalCutMaxFrame"] = vars.Helper.Make<ulong>(gEngine, 0x9A0, 0x78, 0x30, 0xA8, 0xA8, 0x2C0, 0x294);
+	//vars.Helper["FinalCutCurrFrame"] = vars.Helper.Make<ulong>(gEngine, 0x9A0, 0x78, 0x30, 0xA8, 0xA8, 0x2C0, 0x3D0);
 	
 	
 	if(version == "SteamRelease"){
@@ -151,7 +151,7 @@ split
 		}
 	}
 	
-	if(current.FinalCutMaxFrame == 916 && current.FinalCutCurrFrame >= 740){
+	if(vars.FNameToShortString2(current.localPlayer) == "PlaytimePlayerController_" && current.Level == "/GasProductionZone/MP_GasProductionZone_Main" && current.Y > 580f && old.Y < 580f){
 		return true;
 	}
 }
