@@ -8,6 +8,7 @@ state("Playtime_Chapter3-Win64-Shipping", "SteamRelease"){}
 
 startup
 {
+	timer.CurrentTimingMethod = TimingMethod.GameTime;
 	Assembly.Load(File.ReadAllBytes("Components/asl-help")).CreateInstance("Basic");
 	vars.Helper.Settings.CreateFromXml("Components/PPCH3.Settings.xml");
 	
